@@ -6,7 +6,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'next/core-web-vitals',
-    'google',
     'prettier',
   ],
   rules: {

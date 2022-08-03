@@ -4,9 +4,9 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:tsuki-lab/nextjs-latest-starter.git"
+    "url": "git+ssh://git@github.com:emp1tsu/nextjs-latest-starter.git"
   },
-  "author": "hanetsuki <me@tsuki-lab.net> (https://github.com/tsuki-lab)",
+  "author": "empitsu <takahashiry.0813@gmail.com> (https://github.com/emp1tsu)",
   "license": "MIT",
   "scripts": {
     "dev": "run-p dev:*",
@@ -16,18 +16,26 @@
     "start": "next start",
     "pathpida": "pathpida -p .gitignore -o ./src/lib -s",
     "lint": "next lint --dir src",
-    "stylelint": "stylelint --ignore-path .gitignore './src/**/*.{css,scss,ts,tsx}'",
+    "stylelint": "stylelint --ignore-path .gitignore \"./src/**/*.{css,scss,ts,tsx}\"",
     "fix": "yarn lint --fix && yarn stylelint --fix && yarn format",
     "typecheck": "tsc",
-    "prettier": "prettier --config .prettierrc.json './**/*.{ts,tsx,json,md}'",
+    "prettier": "prettier --config .prettierrc.json \"./src/**/*.{ts,tsx,json,md}\"",
     "format": "yarn prettier --write",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "migrate:dev": "npx prisma migrate dev",
+    "prisma:studio": "npx prisma studio"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
+    "@next-auth/prisma-adapter": "^1.0.4",
+    "@prisma/client": "^4.1.1",
+    "@tanstack/react-query": "^4.0.10",
+    "moment": "^2.29.4",
     "next": "12.2.2",
+    "next-auth": "^4.10.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "recoil": "^0.7.4",
     "ress": "^5.0.2"
   },
   "devDependencies": {
@@ -35,6 +43,7 @@
     "@types/node": "18.0.5",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
+    "@types/react-query": "^1.2.9",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "eslint": "^8.19.0",
     "eslint-config-google": "^0.14.0",
@@ -45,6 +54,7 @@
     "pathpida": "^0.18.1",
     "postcss-syntax": "^0.36.2",
     "prettier": "^2.7.1",
+    "prisma": "^4.1.1",
     "stylelint": "^14.9.1",
     "stylelint-config-idiomatic-order": "^8.1.0",
     "stylelint-config-prettier": "^9.0.3",

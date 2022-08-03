@@ -4,4 +4,4 @@
 yarn typecheck
 yarn lint
 yarn stylelint
-yarn prettier -l
+yarn prettier

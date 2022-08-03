@@ -1,13 +1,26 @@
 import 'ress'
 import { css, Global } from '@emotion/react'
+import {
+  QueryClient,
+  QueryClientProvider,
+  Hydrate,
+} from '@tanstack/react-query'
+import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
+import { useState } from 'react'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  const [queryClient] = useState(() => new QueryClient())
+
   return (
-    <>
-      <Global styles={globalStyle} />
-      <Component {...pageProps} />
-    </>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <Global styles={globalStyle} />
+          <Component {...pageProps} />
+        </Hydrate>
+      </QueryClientProvider>
+    </SessionProvider>
   )
 }
 
