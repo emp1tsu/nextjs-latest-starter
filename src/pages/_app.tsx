@@ -1,13 +1,29 @@
-import 'ress'
-import { css, Global } from '@emotion/react'
-import {
-  QueryClient,
-  QueryClientProvider,
-  Hydrate,
-} from '@tanstack/react-query'
+import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { useState } from 'react'
+
+const colors = {
+  brand: {
+    50: '#ecefff',
+    100: '#cbceeb',
+    200: '#a9aed6',
+    300: '#888ec5',
+    400: '#666db3',
+    500: '#4d5499',
+    600: '#3c4178',
+    700: '#2a2f57',
+    800: '#181c37',
+    900: '#080819',
+  },
+}
+const config = {
+  initialColorMode: 'dark',
+  useSystemColorMode: false,
+}
+
+const theme = extendTheme({ colors, config })
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [queryClient] = useState(() => new QueryClient())
@@ -15,40 +31,12 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <Global styles={globalStyle} />
+        <ChakraProvider theme={theme}>
           <Component {...pageProps} />
-        </Hydrate>
+        </ChakraProvider>
       </QueryClientProvider>
     </SessionProvider>
   )
 }
 
 export default MyApp
-
-const globalStyle = css`
-  html {
-    --color-primary: #3a4452;
-    --color-secondary: #bfcbdc;
-    --color-base: #f6f7f8;
-    --color-accent: #d35692;
-    --color-white: #fdfdfd;
-    --color-black: #1f1f1f;
-  }
-
-  body {
-    background-color: var(--color-white);
-    color: var(--color-black);
-  }
-
-  a {
-    color: var(--color-secondary);
-
-    &:hover,
-    &:focus,
-    &:active {
-      color: var(--color-accent);
-      text-decoration: underline;
-    }
-  }
-`

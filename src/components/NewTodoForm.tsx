@@ -1,9 +1,10 @@
+import { css } from '@emotion/react'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 
 const NewTodoForm = () => {
   const queryClient = useQueryClient()
-  const [form, update] = useState({
+  const [form, setForm] = useState({
     title: '',
     body: '',
   })
@@ -22,33 +23,33 @@ const NewTodoForm = () => {
   )
   const saveTodo = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault()
-    update({ title: '', body: '' })
+    setForm({ title: '', body: '' })
     mutate()
   }
   return (
     <form
       onSubmit={saveTodo}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}
+      css={css`
+        display: flex;
+        flex-direction: column;
+      `}
     >
       <label
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-        }}
+        css={css`
+          display: flex;
+          flex-direction: column;
+        `}
       >
         タイトル
         <input
-          style={{
-            width: '500px',
-            border: '1px solid',
-          }}
+          css={css`
+            width: '500px';
+            border: '1px solid';
+          `}
           type="text"
           id="title"
           value={form.title}
-          onChange={(e) => update({ ...form, title: e.target.value })}
+          onChange={(e) => setForm({ ...form, title: e.target.value })}
         />
       </label>
       <label
@@ -66,7 +67,7 @@ const NewTodoForm = () => {
           }}
           id="body"
           value={form.body}
-          onChange={(e) => update({ ...form, body: e.target.value })}
+          onChange={(e) => setForm({ ...form, body: e.target.value })}
         />
       </label>
       <button
